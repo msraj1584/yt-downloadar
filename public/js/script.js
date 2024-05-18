@@ -5,5 +5,5 @@ document.getElementById('download-form').addEventListener('submit', function(eve
         document.getElementById('message').textContent = 'Please enter a valid URL.';
         return;
     }
-    window.location.href = `/download?url=${encodeURIComponent(url)}`;
+    window.location.href = `/.netlify/functions/download?url=${encodeURIComponent(url)}`;
 });
