@@ -13,11 +13,11 @@ exports.handler = async function(event, context) {
 
     try {
         const info = await ytdl.getInfo(videoURL);
-        const formats = ytdl.filterFormats(info.formats, 'videoonly');
+        const adaptiveFormats = info.formats.filter(format => format.hasAudio && format.hasVideo);
 
         if (!quality) {
             // If no quality specified, return available qualities
-            const availableQualities = formats.map(format => ({
+            const availableQualities = adaptiveFormats.map(format => ({
                 quality: format.qualityLabel,
                 itag: format.itag,
                 format: `${format.container.toUpperCase()} - ${format.resolution} - ${format.encoding || 'Video Only'} - ${format.audioBitrate ? format.audioBitrate + 'kbps' : ''}`
@@ -31,7 +31,7 @@ exports.handler = async function(event, context) {
             };
         } else {
             // If quality is specified, find the format
-            const format = formats.find(f => f.itag.toString() === quality);
+            const format = adaptiveFormats.find(f => f.itag.toString() === quality);
             if (!format) {
                 return {
                     statusCode: 400,
