@@ -1,5 +1,6 @@
 document.getElementById('fetch-qualities').addEventListener('click', function(event) {
     event.preventDefault();
+    document.getElementById('message').textContent = '';
     const url = document.getElementById('url').value;
     if (!url) {
         document.getElementById('message').textContent = 'Please enter a valid URL.';
