@@ -14,17 +14,12 @@ exports.handler = async function(event, context) {
         const info = await ytdl.getInfo(videoURL);
         const formats = ytdl.filterFormats(info.formats, 'videoonly');
 
-        const availableQualities = formats.map(format => {
-            let formatDescription = `${format.container.toUpperCase()} - ${format.resolution}`;
-            if (format.encoding) formatDescription += ` - ${format.encoding}`;
-            if (format.audioBitrate) formatDescription += ` - ${format.audioBitrate}kbps`;
-            return {
-                quality: format.qualityLabel,
-                itag: format.itag,
-                format: formatDescription,
-                url: format.url
-            };
-        });
+        const availableQualities = formats.map(format => ({
+            quality: format.qualityLabel,
+            itag: format.itag,
+            format: `${format.container.toUpperCase()} - ${format.resolution} - ${format.encoding}`,
+            url: format.url
+        }));
 
         return {
             statusCode: 200,
