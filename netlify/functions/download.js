@@ -10,28 +10,24 @@ exports.handler = async function(event, context) {
         };
     }
 
-    const videoReadableStream = ytdl(videoURL, { format: 'mp4' });
+    try {
+        const info = await ytdl.getInfo(videoURL);
+        const format = ytdl.chooseFormat(info.formats, { quality: 'highestvideo' });
 
-    const headers = {
-        'Content-Type': 'video/mp4',
-        'Content-Disposition': 'attachment; filename="video.mp4"',
-    };
-
-    return new Promise((resolve, reject) => {
-        const chunks = [];
-        videoReadableStream.on('data', chunk => chunks.push(chunk));
-        videoReadableStream.on('end', () => {
-            const body = Buffer.concat(chunks).toString('base64');
-            resolve({
-                statusCode: 200,
-                headers,
-                isBase64Encoded: true,
-                body,
-            });
-        });
-        videoReadableStream.on('error', err => reject({
+        return {
+            statusCode: 200,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url: format.url,
+                title: info.videoDetails.title
+            }),
+        };
+    } catch (error) {
+        return {
             statusCode: 500,
-            body: 'Server Error: ' + err.message,
-        }));
-    });
+            body: `Server Error: ${error.message}`,
+        };
+    }
 };
