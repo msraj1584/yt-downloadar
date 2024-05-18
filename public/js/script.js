@@ -15,7 +15,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 data.availableQualities.forEach(quality => {
                     const option = document.createElement('option');
                     option.value = quality.itag;
-                    option.textContent = quality.quality;
+                    option.textContent = `${quality.quality} (${quality.format})`;
                     qualitySelect.appendChild(option);
                 });
                 qualitySelect.style.display = 'block';
