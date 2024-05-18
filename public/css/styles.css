@@ -1,48 +1,41 @@
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #f4f4f4;
 }
 
 .container {
+  max-width: 600px;
+  margin: 0 auto;
   text-align: center;
-  background: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"] {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+#thumbnail-container {
+  margin-bottom: 20px;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  background-color: #28a745;
-  color: white;
-  cursor: pointer;
+#thumbnail-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
-button:hover {
-  background-color: #218838;
+#download-form {
+  display: inline-block;
+  text-align: left;
 }
 
-#message {
-  margin-top: 20px;
-}
-
-/* Style for the quality select */
 #quality {
-  display: block;
   margin-top: 10px;
   padding: 8px;
   font-size: 16px;
@@ -50,9 +43,7 @@ button:hover {
   border-radius: 4px;
 }
 
-/* Style for the download button */
 #download-button {
-  display: block;
   margin-top: 10px;
   padding: 10px 20px;
   font-size: 16px;
@@ -63,7 +54,11 @@ button:hover {
   cursor: pointer;
 }
 
-/* Hover effect for the download button */
 #download-button:hover {
   background-color: #0056b3;
+}
+
+#message {
+  margin-top: 10px;
+  color: #ff0000;
 }
