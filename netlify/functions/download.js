@@ -20,7 +20,7 @@ exports.handler = async function(event, context) {
             const availableQualities = adaptiveFormats.map(format => ({
                 quality: format.qualityLabel,
                 itag: format.itag,
-                format: `${format.container.toUpperCase()} - ${format.resolution} - ${format.encoding || 'Video Only'} - ${format.audioBitrate ? format.audioBitrate + 'kbps' : ''}`
+                format: `${format.container.toUpperCase()} - ${format.audioBitrate ? format.audioBitrate + 'kbps' : ''}`
             }));
             return {
                 statusCode: 200,
