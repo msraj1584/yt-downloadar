@@ -16,7 +16,9 @@ exports.handler = async function(event, context) {
 
         const availableQualities = formats.map(format => ({
             quality: format.qualityLabel,
-            format: `${format.container.toUpperCase()}`
+            itag: format.itag,
+            format: `${format.container.toUpperCase()}`,
+            url: format.url
         }));
 
         return {
