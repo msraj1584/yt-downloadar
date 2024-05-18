@@ -2,7 +2,6 @@ const ytdl = require('ytdl-core');
 
 exports.handler = async function(event, context) {
     const videoURL = event.queryStringParameters.url;
-    const quality = event.queryStringParameters.quality;
 
     if (!ytdl.validateURL(videoURL)) {
         return {
@@ -15,40 +14,19 @@ exports.handler = async function(event, context) {
         const info = await ytdl.getInfo(videoURL);
         const formats = ytdl.filterFormats(info.formats, 'videoonly');
 
-        if (!quality) {
-            // If no quality specified, return available qualities
-            const availableQualities = formats.map(format => ({
-                quality: format.qualityLabel,
-                itag: format.itag,
-                url: format.url
-            }));
-            return {
-                statusCode: 200,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ availableQualities }),
-            };
-        } else {
-            // If quality is specified, find the format
-            const format = formats.find(f => f.itag.toString() === quality);
-            if (!format) {
-                return {
-                    statusCode: 400,
-                    body: 'Invalid quality selected',
-                };
-            }
-            return {
-                statusCode: 200,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    url: format.url,
-                    title: info.videoDetails.title
-                }),
-            };
-        }
+        const availableQualities = formats.map(format => ({
+            quality: format.qualityLabel,
+            itag: format.itag,
+            url: format.url
+        }));
+
+        return {
+            statusCode: 200,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ availableQualities }),
+        };
     } catch (error) {
         return {
             statusCode: 500,
