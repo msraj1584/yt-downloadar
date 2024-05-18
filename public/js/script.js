@@ -1,6 +1,5 @@
 document.getElementById('fetch-qualities').addEventListener('click', function(event) {
     event.preventDefault();
-    document.getElementById('message').textContent = '';
     const url = document.getElementById('url').value;
     if (!url) {
         document.getElementById('message').textContent = 'Please enter a valid URL.';
@@ -21,6 +20,10 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 });
                 qualitySelect.style.display = 'block';
                 document.getElementById('download-button').style.display = 'block';
+
+                // Display video thumbnail
+                const thumbnailContainer = document.getElementById('thumbnail-container');
+                thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail">`;
             } else {
                 document.getElementById('message').textContent = 'Error: Unable to fetch video qualities.';
             }

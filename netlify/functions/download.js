@@ -15,6 +15,9 @@ exports.handler = async function(event, context) {
         const info = await ytdl.getInfo(videoURL);
         const adaptiveFormats = info.formats.filter(format => format.hasAudio && format.hasVideo);
 
+           // Get video thumbnail
+           const thumbnail = info.videoDetails.thumbnails && info.videoDetails.thumbnails[0] && info.videoDetails.thumbnails[0].url;
+
         if (!quality) {
             // If no quality specified, return available qualities
             const availableQualities = adaptiveFormats.map(format => ({
@@ -27,7 +30,7 @@ exports.handler = async function(event, context) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ availableQualities }),
+                body: JSON.stringify({ availableQualities,thumbnail }),
             };
         } else {
             // If quality is specified, find the format
@@ -45,7 +48,8 @@ exports.handler = async function(event, context) {
                 },
                 body: JSON.stringify({
                     url: format.url,
-                    title: info.videoDetails.title
+                    title: info.videoDetails.title,
+                    thumbnail
                 }),
             };
         }
