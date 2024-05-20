@@ -10,6 +10,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
         .then(response => response.json())
         .then(data => {
             if (data.availableQualities) {
+                const qltylbl =  document.getElementById('qltylbl');
                 const qualitySelect = document.getElementById('quality');
                 qualitySelect.innerHTML = '';
                 data.availableQualities.forEach(quality => {
@@ -18,6 +19,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                     option.textContent = `${quality.quality} (${quality.format})`;
                     qualitySelect.appendChild(option);
                 });
+                qltylbl.style.display = 'block';
                 qualitySelect.style.display = 'block';
                 document.getElementById('download-button').style.display = 'block';
 
