@@ -23,14 +23,15 @@ exports.handler = async function(event, context) {
             const availableQualities = adaptiveFormats.map(format => ({
                 quality: format.qualityLabel,
                 itag: format.itag,
-                format: `${format.container.toUpperCase()} - ${format.audioBitrate ? format.audioBitrate + 'kbps' : ''}`
+                format: `${format.container.toUpperCase()} - ${format.audioBitrate ? format.audioBitrate + 'kbps' : ''}`,
+                size: format.contentLength || null
             }));
             return {
                 statusCode: 200,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title,availableQualities,thumbnail }),
+                body: JSON.stringify({ title,availableQualities,thumbnail, size}),
             };
         } else {
             // If quality is specified, find the format
@@ -49,7 +50,8 @@ exports.handler = async function(event, context) {
                 body: JSON.stringify({
                     url: format.url,
                     title,
-                    thumbnail
+                    thumbnail, 
+                    size: format.contentLength || null // Get video size if available
                 }),
             };
         }

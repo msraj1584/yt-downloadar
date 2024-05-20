@@ -44,6 +44,9 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 listItem.textContent = `${quality.quality} (${quality.format})`;
                 listItem.dataset.value = quality.itag; // Use dataset to store the value
                 listItem.style.marginBottom = '10px'; // Set margin-bottom to 10px
+// Display size if available
+const sizeText = quality.size ? ` - Size: ${formatBytes(quality.size)}` : ''; // Convert bytes to human-readable format
+listItem.textContent += sizeText;
 
                 const downloadButton = document.createElement('button');
                 downloadButton.textContent = 'Download';
@@ -76,6 +79,15 @@ videoTitle.innerHTML=`${data.title}`;
             document.getElementById('message').textContent = `Error: ${error.message}`;
         });
 });
+// Function to convert bytes to human-readable format
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
 
 function downloadVideo(quality) {
     const url = document.getElementById('url').value;
