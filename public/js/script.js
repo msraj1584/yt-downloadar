@@ -45,8 +45,9 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
             
                 const downloadButton = document.createElement('button');
                 downloadButton.textContent = 'Download';
-                downloadButton.type= 'submit';
-                downloadButton.addEventListener('click', () => {
+                downloadButton.type='button';
+                downloadButton.addEventListener('click', (event) => {
+                        event.preventDefault();
                     downloadVideo(quality.itag);
                 });
             
