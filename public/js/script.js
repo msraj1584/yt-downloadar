@@ -27,7 +27,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
 
                 // Display Video Title
                 const videoTitle = document.getElementById('videoTitle');
-                videoTitle.innerHTML=`"${data.title}"`;
+                videoTitle.innerHTML=`${data.title}`;
             } else {
                 document.getElementById('message').textContent = 'Error: Unable to fetch video qualities.';
             }
