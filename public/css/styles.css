@@ -131,3 +131,22 @@ body {
     margin-top: 10px;
     color: #ff0000;
 }
+    /* Style for the list items */
+    #qualityList li {
+      margin-bottom: 10px; /* Adjust as needed */
+  }
+
+  /* Style for the download button */
+  #qualityList button {
+      background-color: #4CAF50; /* Green background */
+      color: white; /* White text */
+      padding: 10px; /* Padding */
+      border: none; /* No border */
+      cursor: pointer; /* Cursor on hover */
+      border-radius: 5px; /* Rounded corners */
+  }
+
+  /* Hover effect for the download button */
+  #qualityList button:hover {
+      background-color: #45a049; /* Darker green on hover */
+  }

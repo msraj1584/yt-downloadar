@@ -21,7 +21,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 });
                 qltylbl.style.display = 'block';
                 qualitySelect.style.display = 'block';
-                document.getElementById('download-button').style.display = 'block';
+                // document.getElementById('download-button').style.display = 'block';
 
 
 
@@ -51,7 +51,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 listItem.appendChild(downloadButton);
                 qualityList.appendChild(listItem);
             });
-
+            qualityList.style.display = 'block';
 
         })
         .catch(error => {
@@ -84,30 +84,31 @@ function downloadVideo(quality) {
             document.getElementById('message').textContent = `Error: ${error.message}`;
         });
 }
-document.getElementById('download-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const url = document.getElementById('url').value;
-    const quality = document.getElementById('quality').value;
-    if (!url || !quality) {
-        document.getElementById('message').textContent = 'Please enter a valid URL and select a quality.';
-        return;
-    }
 
-    fetch(`/.netlify/functions/download?url=${encodeURIComponent(url)}&quality=${quality}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.url) {
-                const a = document.createElement('a');
-                a.href = data.url;
-                a.download = `${data.title}.mp4`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
-            }
-        })
-        .catch(error => {
-            document.getElementById('message').textContent = `Error: ${error.message}`;
-        });
-});
+// document.getElementById('download-form').addEventListener('submit', function(event) {
+//     event.preventDefault();
+//     const url = document.getElementById('url').value;
+//     const quality = document.getElementById('quality').value;
+//     if (!url || !quality) {
+//         document.getElementById('message').textContent = 'Please enter a valid URL and select a quality.';
+//         return;
+//     }
+
+//     fetch(`/.netlify/functions/download?url=${encodeURIComponent(url)}&quality=${quality}`)
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.url) {
+//                 const a = document.createElement('a');
+//                 a.href = data.url;
+//                 a.download = `${data.title}.mp4`;
+//                 document.body.appendChild(a);
+//                 a.click();
+//                 document.body.removeChild(a);
+//             } else {
+//                 document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
+//             }
+//         })
+//         .catch(error => {
+//             document.getElementById('message').textContent = `Error: ${error.message}`;
+//         });
+// });
