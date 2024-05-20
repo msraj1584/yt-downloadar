@@ -137,7 +137,7 @@ body {
   }
 
   /* Style for the download button */
-  ul button {
+  .download-button  {
       background-color: #4CAF50; /* Green background */
       color: white; /* White text */
       padding: 10px; /* Padding */
@@ -147,6 +147,6 @@ body {
   }
 
   /* Hover effect for the download button */
-  ul button:hover {
+  .download-button :hover {
       background-color: #45a049; /* Darker green on hover */
   }
