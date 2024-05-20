@@ -132,12 +132,12 @@ body {
     color: #ff0000;
 }
     /* Style for the list items */
-    #qualityList li {
+    ul li {
       margin-bottom: 10px; /* Adjust as needed */
   }
 
   /* Style for the download button */
-  #qualityList button {
+  ul button {
       background-color: #4CAF50; /* Green background */
       color: white; /* White text */
       padding: 10px; /* Padding */
@@ -147,6 +147,6 @@ body {
   }
 
   /* Hover effect for the download button */
-  #qualityList button:hover {
+  ul button:hover {
       background-color: #45a049; /* Darker green on hover */
   }
