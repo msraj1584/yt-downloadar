@@ -14,7 +14,7 @@ exports.handler = async function(event, context) {
     try {
         const info = await ytdl.getInfo(videoURL);
         //const adaptiveFormats = info.formats.filter(format => format.hasAudio && format.hasVideo);
-        const adaptiveFormats = ytdl(videoURL, { filter: format => format.container === 'mp4' })
+        const adaptiveFormats = info.formats.filter(format => format.container === 'mp4' );
            // Get video thumbnail
         //    const thumbnail = info.videoDetails.thumbnails && info.videoDetails.thumbnails[0] && info.videoDetails.thumbnails[0].url;
 
