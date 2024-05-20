@@ -24,6 +24,10 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 // Display video thumbnail
                 const thumbnailContainer = document.getElementById('thumbnail-container');
                 thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail">`;
+
+                // Display Video Title
+                const videoTitle = document.getElementById('videoTitle');
+                videoTitle.innerHTML='"${data.thumbnail}"';
             } else {
                 document.getElementById('message').textContent = 'Error: Unable to fetch video qualities.';
             }

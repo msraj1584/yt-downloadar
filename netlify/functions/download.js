@@ -16,7 +16,11 @@ exports.handler = async function(event, context) {
         const adaptiveFormats = info.formats.filter(format => format.hasAudio && format.hasVideo);
 
            // Get video thumbnail
-           const thumbnail = info.videoDetails.thumbnails && info.videoDetails.thumbnails[0] && info.videoDetails.thumbnails[0].url;
+        //    const thumbnail = info.videoDetails.thumbnails && info.videoDetails.thumbnails[0] && info.videoDetails.thumbnails[0].url;
+
+           // Get video title and thumbnail
+        const title = info.videoDetails.title;
+        const thumbnail = info.videoDetails.thumbnails?.[0]?.url || null;
 
         if (!quality) {
             // If no quality specified, return available qualities
@@ -30,7 +34,7 @@ exports.handler = async function(event, context) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ availableQualities,thumbnail }),
+                body: JSON.stringify({ title,availableQualities,thumbnail }),
             };
         } else {
             // If quality is specified, find the format
@@ -48,7 +52,7 @@ exports.handler = async function(event, context) {
                 },
                 body: JSON.stringify({
                     url: format.url,
-                    title: info.videoDetails.title,
+                    title,
                     thumbnail
                 }),
             };
