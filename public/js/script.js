@@ -46,7 +46,12 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 const downloadButton = document.createElement('button');
                 downloadButton.textContent = 'Download';
                 downloadButton.type='submit';
-                downloadButton.classList.add('download-button'); // Add a CSS class
+                downloadButton.style.backgroundColor = '#4CAF50'; // Green background
+downloadButton.style.color = 'white'; // White text
+downloadButton.style.padding = '10px'; // Padding
+downloadButton.style.border = 'none'; // No border
+downloadButton.style.cursor = 'pointer'; // Cursor on hover
+downloadButton.style.borderRadius = '5px'; // Rounded corners
                 downloadButton.addEventListener('click', (event) => {
                         event.preventDefault();
                     downloadVideo(quality.itag);
