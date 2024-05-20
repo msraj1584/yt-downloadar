@@ -38,12 +38,13 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
             // }
             const qltylbl =  document.getElementById('qltylbl');
             const qualityList = document.getElementById('qualityList');
+            qualityList.innerHTML = ''; // Clear old list
             data.availableQualities.forEach(quality => {
                 const listItem = document.createElement('li');
                 listItem.textContent = `${quality.quality} (${quality.format})`;
                 listItem.dataset.value = quality.itag; // Use dataset to store the value
                 listItem.style.marginBottom = '10px'; // Set margin-bottom to 10px
-                
+
                 const downloadButton = document.createElement('button');
                 downloadButton.textContent = 'Download';
                 downloadButton.type='submit';
