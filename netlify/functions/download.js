@@ -31,7 +31,7 @@ exports.handler = async function(event, context) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title,availableQualities,thumbnail, size}),
+                body: JSON.stringify({ title,availableQualities,thumbnail}),
             };
         } else {
             // If quality is specified, find the format
