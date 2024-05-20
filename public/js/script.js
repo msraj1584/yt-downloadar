@@ -1,6 +1,7 @@
 document.getElementById('fetch-qualities').addEventListener('click', function(event) {
     event.preventDefault();
     const url = document.getElementById('url').value;
+    document.getElementById('message').textContent = '';
     if (!url) {
         document.getElementById('message').textContent = 'Please enter a valid URL.';
         return;
@@ -93,7 +94,7 @@ function downloadVideo(quality) {
     const url = document.getElementById('url').value;
     document.getElementById('message').textContent = '';
     if (!url) {
-        document.getElementById('message').textContent = 'Please enter a valid URL.';
+        document.getElementById('message').textContent = 'Please enter a valid URL and select a quality.';
         return;
     }
 
