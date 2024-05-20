@@ -46,18 +46,12 @@ document.getElementById('download-form').addEventListener('submit', function(eve
         .then(response => response.json())
         .then(data => {
             if (data.url) {
-                // const a = document.createElement('a');
-                // a.href = data.url;
-                // a.download = `${data.title}.mp4`;
-                // document.body.appendChild(a);
-                // a.click();
-                // document.body.removeChild(a);
-
-
-                const anchor = document.createElement('a');
-anchor.href = data.url;
-anchor.download = `${data.title}.mp4`;
-anchor.click();
+                const a = document.createElement('a');
+                a.href = data.url;
+                a.download = `${data.title}.mp4`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
             } else {
                 document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
             }
