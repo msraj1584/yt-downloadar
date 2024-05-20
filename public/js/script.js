@@ -1,12 +1,18 @@
 document.getElementById('fetch-qualities').addEventListener('click', function(event) {
     event.preventDefault();
     const url = document.getElementById('url').value;
+    const start = document.getElementById('start').value;
+    const end = document.getElementById('end').value;
     if (!url) {
         document.getElementById('message').textContent = 'Please enter a valid URL.';
         return;
     }
 
-    fetch(`/.netlify/functions/download?url=${encodeURIComponent(url)}`)
+    let fetchUrl = `/.netlify/functions/download?url=${encodeURIComponent(url)}`;
+    if (start) fetchUrl += `&start=${start}`;
+    if (end) fetchUrl += `&end=${end}`;
+
+    fetch(fetchUrl)
         .then(response => response.json())
         .then(data => {
             if (data.availableQualities) {
@@ -41,12 +47,18 @@ document.getElementById('download-form').addEventListener('submit', function(eve
     event.preventDefault();
     const url = document.getElementById('url').value;
     const quality = document.getElementById('quality').value;
+    const start = document.getElementById('start').value;
+    const end = document.getElementById('end').value;
     if (!url || !quality) {
         document.getElementById('message').textContent = 'Please enter a valid URL and select a quality.';
         return;
     }
 
-    fetch(`/.netlify/functions/download?url=${encodeURIComponent(url)}&quality=${quality}`)
+let fetchUrl = `/.netlify/functions/download?url=${encodeURIComponent(url)}&quality=${quality}`;
+    if (start) fetchUrl += `&start=${start}`;
+    if (end) fetchUrl += `&end=${end}`;
+
+    fetch(fetchUrl)
         .then(response => response.json())
         .then(data => {
             if (data.url) {

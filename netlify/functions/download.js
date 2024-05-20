@@ -3,7 +3,8 @@ const ytdl = require('ytdl-core');
 exports.handler = async function(event, context) {
     const videoURL = event.queryStringParameters.url;
     const quality = event.queryStringParameters.quality;
-
+    const start = event.queryStringParameters.start;
+    const end = event.queryStringParameters.end;
     if (!ytdl.validateURL(videoURL)) {
         return {
             statusCode: 400,
@@ -13,10 +14,7 @@ exports.handler = async function(event, context) {
 
     try {
         const info = await ytdl.getInfo(videoURL);
-        //const adaptiveFormats = info.formats.filter(format => format.hasAudio && format.hasVideo);
-        const adaptiveFormats = info.formats.filter(format => format.container === 'mp4' );
-           // Get video thumbnail
-        //    const thumbnail = info.videoDetails.thumbnails && info.videoDetails.thumbnails[0] && info.videoDetails.thumbnails[0].url;
+        const adaptiveFormats = info.formats.filter(format => format.hasAudio && format.hasVideo);
 
            // Get video title and thumbnail
         const title = info.videoDetails.title;
@@ -45,13 +43,21 @@ exports.handler = async function(event, context) {
                     body: 'Invalid quality selected',
                 };
             }
+             // Prepare options for start and end duration
+             const options = {};
+             if (start) options.begin = parseInt(start, 10);
+             if (end) options.end = parseInt(end, 10);
+ 
+             // Generate the download URL with options
+             const downloadURL = ytdl.downloadFromInfo(info, { quality: format.itag, requestOptions: { headers: { range: options } } });
+ 
             return {
                 statusCode: 200,
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    url: format.url,
+                    url: downloadURL,
                     title,
                     thumbnail
                 }),
