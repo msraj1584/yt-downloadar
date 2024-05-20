@@ -25,7 +25,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
 
                 // Display video thumbnail
                 const thumbnailContainer = document.getElementById('thumbnail-container');
-                thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail">`;
+                thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail" style="margin-left: auto; margin-right: auto;">`;
 
                 // Display Video Title
                 const videoTitle = document.getElementById('videoTitle');
