@@ -91,6 +91,7 @@ function formatBytes(bytes, decimals = 2) {
 
 function downloadVideo(quality) {
     const url = document.getElementById('url').value;
+    document.getElementById('message').textContent = '';
     if (!url) {
         document.getElementById('message').textContent = 'Please enter a valid URL.';
         return;
