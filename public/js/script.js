@@ -9,33 +9,34 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
     fetch(`/.netlify/functions/download?url=${encodeURIComponent(url)}`)
         .then(response => response.json())
         .then(data => {
-            if (data.availableQualities) {
-                const qltylbl =  document.getElementById('qltylbl');
-                const qualitySelect = document.getElementById('quality');
-                qualitySelect.innerHTML = '';
-                data.availableQualities.forEach(quality => {
-                    const option = document.createElement('option');
-                    option.value = quality.itag;
-                    option.textContent = `${quality.quality} (${quality.format})`;
-                    qualitySelect.appendChild(option);
-                });
-                qltylbl.style.display = 'block';
-                qualitySelect.style.display = 'block';
-                // document.getElementById('download-button').style.display = 'block';
+            // if (data.availableQualities) {
+            //     const qltylbl =  document.getElementById('qltylbl');
+            //     const qualitySelect = document.getElementById('quality');
+            //     qualitySelect.innerHTML = '';
+            //     data.availableQualities.forEach(quality => {
+            //         const option = document.createElement('option');
+            //         option.value = quality.itag;
+            //         option.textContent = `${quality.quality} (${quality.format})`;
+            //         qualitySelect.appendChild(option);
+            //     });
+            //     qltylbl.style.display = 'block';
+            //     qualitySelect.style.display = 'block';
+            //     // document.getElementById('download-button').style.display = 'block';
 
 
 
 
-                // Display video thumbnail
-                const thumbnailContainer = document.getElementById('thumbnail-container');
-                thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail" style="margin-left: auto; margin-right: auto;">`;
+            //     // Display video thumbnail
+            //     const thumbnailContainer = document.getElementById('thumbnail-container');
+            //     thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail" style="margin-left: auto; margin-right: auto;">`;
 
-                // Display Video Title
-                const videoTitle = document.getElementById('videoTitle');
-                videoTitle.innerHTML=`${data.title}`;
-            } else {
-                document.getElementById('message').textContent = 'Error: Unable to fetch video qualities.';
-            }
+            //     // Display Video Title
+            //     const videoTitle = document.getElementById('videoTitle');
+            //     videoTitle.innerHTML=`${data.title}`;
+            // } else {
+            //     document.getElementById('message').textContent = 'Error: Unable to fetch video qualities.';
+            // }
+            const qltylbl =  document.getElementById('qltylbl');
             const qualityList = document.getElementById('qualityList');
             data.availableQualities.forEach(quality => {
                 const listItem = document.createElement('li');
@@ -52,7 +53,14 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 qualityList.appendChild(listItem);
             });
             qualityList.style.display = 'block';
+            qltylbl.style.display = 'block';
+// Display video thumbnail
+const thumbnailContainer = document.getElementById('thumbnail-container');
+thumbnailContainer.innerHTML = `<img src="${data.thumbnail}" alt="Video Thumbnail" style="margin-left: auto; margin-right: auto;">`;
 
+// Display Video Title
+const videoTitle = document.getElementById('videoTitle');
+videoTitle.innerHTML=`${data.title}`;
         })
         .catch(error => {
             document.getElementById('message').textContent = `Error: ${error.message}`;
