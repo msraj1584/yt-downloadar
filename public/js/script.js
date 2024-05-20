@@ -46,7 +46,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
                 listItem.dataset.value = quality.itag; // Use dataset to store the value
                 listItem.style.marginBottom = '10px'; // Set margin-bottom to 10px
 // Display size if available
-const sizeText = quality.size ? ` - Size: ${formatBytes(quality.size)}` : ''; // Convert bytes to human-readable format
+const sizeText = quality.size ? ` - Size: ${formatBytes(quality.size)}` : '- Size: unknown'; // Convert bytes to human-readable format
 listItem.textContent += sizeText;
 
                 const downloadButton = document.createElement('button');
