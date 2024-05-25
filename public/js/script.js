@@ -72,49 +72,25 @@ function downloadVideo(quality) {
     triggerDownload(downloadUrl);
 }
 
-// function triggerDownload(downloadUrl) {
-//     fetch(downloadUrl)
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.url) {
-//                 const a = document.createElement('a');
-//                 a.href = data.url;
-//                 a.download = `${data.title}.mp4`;
-//                 document.body.appendChild(a);
-//                 a.click();
-//                 document.body.removeChild(a);
-//             } else {
-//                 document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
-//             }
-//         })
-//         .catch(error => {
-//             document.getElementById('message').textContent = `Error: ${error.message}`;
-//         });
-// }
 function triggerDownload(downloadUrl) {
     fetch(downloadUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to fetch video');
-        }
-        return response.blob(); // Get the video data as a blob
-    })
-    .then(blob => {
-        const url = window.URL.createObjectURL(blob); // Create a URL for the blob
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'video.mp4'; // Set a default name for the downloaded file
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url); // Clean up the URL object to free up memory
-    })
-    .catch(error => {
-        console.error('Error downloading video:', error);
-        // Handle errors
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.url) {
+                const a = document.createElement('a');
+                a.href = data.url;
+                a.download = `${data.title}.mp4`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
+            }
+        })
+        .catch(error => {
+            document.getElementById('message').textContent = `Error: ${error.message}`;
+        });
 }
-
 
 function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
