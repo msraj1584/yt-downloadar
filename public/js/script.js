@@ -72,25 +72,50 @@ function downloadVideo(quality) {
     triggerDownload(downloadUrl);
 }
 
+// function triggerDownload(downloadUrl) {
+//     fetch(downloadUrl)
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.url) {
+//                 const a = document.createElement('a');
+//                 a.href = data.url;
+//                 a.download = `${data.title}.mp4`;
+//                 document.body.appendChild(a);
+//                 a.click();
+//                 document.body.removeChild(a);
+//             } else {
+//                 document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
+//             }
+//         })
+//         .catch(error => {
+//             document.getElementById('message').textContent = `Error: ${error.message}`;
+//         });
+// }
 function triggerDownload(downloadUrl) {
-    fetch(downloadUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.url) {
-                const a = document.createElement('a');
-                a.href = data.url;
-                a.download = `${data.title}.mp4`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
-            }
-        })
-        .catch(error => {
-            document.getElementById('message').textContent = `Error: ${error.message}`;
-        });
+    fetch(downloadUrl, {
+        headers: {
+            'Content-Type': 'application/json', // Specify Content-Type header
+            'Content-Disposition': 'attachment' // Specify Content-Disposition header
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.url) {
+            const a = document.createElement('a');
+            a.href = data.url;
+            a.download = `${data.title}.mp4`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').textContent = `Error: ${error.message}`;
+    });
 }
+
 
 function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
