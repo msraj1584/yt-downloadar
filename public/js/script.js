@@ -72,16 +72,11 @@ function downloadVideo(quality) {
     triggerDownload(downloadUrl);
 }
 function triggerDownload(downloadUrl) {
-    fetch(downloadUrl, {
-        method: 'GET',
-        headers: {
-            'Content-Disposition': 'attachment' // Set Content-Disposition header to 'attachment'
-        }
-    })
+    fetch(downloadUrl)
     .then(response => {
         // Check if response is successful
         if (!response.ok) {
-            throw new Error('Failed to download video');
+            throw new Error('Failed to fetch video');
         }
         // Return response blob
         return response.blob();
@@ -109,6 +104,7 @@ function triggerDownload(downloadUrl) {
         console.error('Error downloading video:', error);
     });
 }
+
 
 // function triggerDownload(downloadUrl) {
 //     fetch(downloadUrl)
