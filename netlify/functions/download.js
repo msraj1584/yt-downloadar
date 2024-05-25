@@ -42,18 +42,41 @@ exports.handler = async function(event, context) {
                     body: 'Invalid quality selected',
                 };
             }
-            return {
-                statusCode: 200,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    url: format.url,
-                    title,
-                    thumbnail, 
-                    size: format.contentLength || null // Get video size if available
-                }),
-            };
+
+            const downloadURL = ytdl(videoURL, { format });
+
+            return new Promise((resolve, reject) => {
+                downloadURL.on('response', (response) => {
+                    const headers = {
+                        'Content-Disposition': `attachment; filename="${title}.mp4"`,
+                        'Content-Type': 'video/mp4',
+                    };
+                    resolve({
+                        statusCode: 200,
+                        headers: headers,
+                        body: response
+                    });
+                });
+                
+                downloadURL.on('error', (error) => {
+                    reject({
+                        statusCode: 500,
+                        body: `Server Error: ${error.message}`,
+                    });
+                });
+            });
+            // return {
+            //     statusCode: 200,
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         url: format.url,
+            //         title,
+            //         thumbnail, 
+            //         size: format.contentLength || null // Get video size if available
+            //     }),
+            // };
         }
     } catch (error) {
         return {
