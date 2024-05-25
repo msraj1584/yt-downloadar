@@ -46,7 +46,8 @@ exports.handler = async function(event, context) {
             return {
                 statusCode: 200,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Content-Disposition': `attachment; filename="${title}.mp4"`
                 },
                 body: JSON.stringify({
                     url: format.url,
