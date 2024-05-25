@@ -71,26 +71,64 @@ function downloadVideo(quality) {
     const downloadUrl = `/.netlify/functions/download?url=${encodeURIComponent(url)}&quality=${quality}`;
     triggerDownload(downloadUrl);
 }
-
 function triggerDownload(downloadUrl) {
-    fetch(downloadUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.url) {
-                const a = document.createElement('a');
-                a.href = data.url;
-                a.download = `${data.title}.mp4`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
-            }
-        })
-        .catch(error => {
-            document.getElementById('message').textContent = `Error: ${error.message}`;
-        });
+    fetch(downloadUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Disposition': 'attachment' // Set Content-Disposition header to 'attachment'
+        }
+    })
+    .then(response => {
+        // Check if response is successful
+        if (!response.ok) {
+            throw new Error('Failed to download video');
+        }
+        // Return response blob
+        return response.blob();
+    })
+    .then(blob => {
+        // Create a URL for the blob
+        const url = window.URL.createObjectURL(blob);
+        // Create a temporary anchor element
+        const a = document.createElement('a');
+        // Set the href attribute to the blob URL
+        a.href = url;
+        // Set the download attribute to force download
+        a.download = ''; // This will trigger download instead of opening in a new tab
+        // Append the anchor to the document body
+        document.body.appendChild(a);
+        // Programmatically click the anchor element
+        a.click();
+        // Remove the anchor from the document body
+        document.body.removeChild(a);
+        // Revoke the blob URL to free up memory
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+        // Handle errors
+        console.error('Error downloading video:', error);
+    });
 }
+
+// function triggerDownload(downloadUrl) {
+//     fetch(downloadUrl)
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.url) {
+//                 const a = document.createElement('a');
+//                 a.href = data.url;
+//                 a.download = `${data.title}.mp4`;
+//                 document.body.appendChild(a);
+//                 a.click();
+//                 document.body.removeChild(a);
+//             } else {
+//                 document.getElementById('message').textContent = 'Error: Unable to fetch video URL.';
+//             }
+//         })
+//         .catch(error => {
+//             document.getElementById('message').textContent = `Error: ${error.message}`;
+//         });
+// }
 
 function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
