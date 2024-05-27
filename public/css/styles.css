@@ -151,28 +151,3 @@ body {
       background-color: #45a049; /* Darker green on hover */
   }
 
-
-  .how-it-works {
-    background: #e9ecef;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.how-it-works h2 {
-    margin-bottom: 20px;
-}
-
-.how-it-works ol {
-    text-align: left;
-    display: inline-block;
-    padding-left: 20px;
-}
-
-.how-it-works ol li {
-    margin-bottom: 20px;
-}
-
-.how-it-works ol li h3 {
-    font-size: 20px;
-    margin-bottom: 5px;
-}
