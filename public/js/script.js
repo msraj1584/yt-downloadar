@@ -14,7 +14,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
             displayVideoDetails(data);
         })
         .catch(error => {
-            document.getElementById('message').textContent = `Error: ${error.message}`;
+            document.getElementById('message').textContent = `Error1: ${error.message}`;
         });
 });
 
@@ -88,7 +88,7 @@ function triggerDownload(downloadUrl) {
             }
         })
         .catch(error => {
-            document.getElementById('message').textContent = `Error: ${error.message}`;
+            document.getElementById('message').textContent = `Error2: ${error.message}`;
         });
 }
 
