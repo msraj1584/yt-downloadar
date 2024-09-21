@@ -14,6 +14,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
             displayVideoDetails(data);
         })
         .catch(error => {
+            console.log(data);
             document.getElementById('message').textContent = `Error1: ${error.message}`;
         });
 });
