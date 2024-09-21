@@ -1,5 +1,3 @@
-const { response } = require("../../src/app");
-
 document.getElementById('fetch-qualities').addEventListener('click', function(event) {
     event.preventDefault();
     const url = document.getElementById('url').value;
@@ -16,8 +14,7 @@ document.getElementById('fetch-qualities').addEventListener('click', function(ev
             displayVideoDetails(data);
         })
         .catch(error => {
-            console.log(response);
-            document.getElementById('message').textContent = `Error1: ${error.message}`;
+            document.getElementById('message').textContent = `Error: ${error.message}`;
         });
 });
 
@@ -91,7 +88,7 @@ function triggerDownload(downloadUrl) {
             }
         })
         .catch(error => {
-            document.getElementById('message').textContent = `Error2: ${error.message}`;
+            document.getElementById('message').textContent = `Error: ${error.message}`;
         });
 }
 
